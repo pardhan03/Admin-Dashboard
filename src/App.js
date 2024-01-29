@@ -18,7 +18,7 @@ const App = () => {
   const [ph, setPh] = useState("");
   const [loading, setLoading] = useState(false);
   const [showOTP, setShowOTP] = useState(false);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(true);
 
   function onCaptchVerify() {
     if (!window.recaptchaVerifier) {

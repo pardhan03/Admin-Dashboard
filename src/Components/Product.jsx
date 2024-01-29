@@ -30,6 +30,7 @@ import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import Modal from '@mui/material/Modal';
 import AddForm from '../Pages/AddForm';
+import EditForm from '../Pages/EditForm';
 import { useAppStore } from './appStore';
 
 export default function ProductList() {
@@ -39,6 +40,10 @@ export default function ProductList() {
   const setRows= useAppStore((state)=>state.setRows);
   const rows=useAppStore((state)=>state.rows);
   const [open, setOpen] = React.useState(false);
+  const[formid,setFormid]=useState("");
+  const[editopen,setEditopen]=useState(false);
+  const handleEditOpen=()=>setEditopen(true);
+  const handleEditClose=()=>setEditopen(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -89,6 +94,7 @@ export default function ProductList() {
     if (v) {
       setRows([v]);
     } else {
+      //setRows([])
       getUsers();
     }
   };
@@ -105,6 +111,17 @@ export default function ProductList() {
     p: 4,
   };
 
+  const editData=(id, name,price,Category)=>{
+    const data={
+      id:id,
+      name:name,
+      price:price,
+      Category:Category,
+    };
+    setFormid(data);
+    handleEditOpen();
+  }
+
   return (
     <>
     <div>
@@ -117,6 +134,16 @@ export default function ProductList() {
       >
         <Box sx={style}>
           <AddForm closeEvent={handleClose}/>
+        </Box>
+      </Modal>
+      <Modal
+        open={editopen}
+        //onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <EditForm closeEvent={handleEditClose} fid={formid}/>
         </Box>
       </Modal>
     </div>
@@ -215,7 +242,8 @@ export default function ProductList() {
                                 cursor: "pointer",
                               }}
                               className="cursor-pointer"
-                              // onClick={() => editUser(row.id)}
+                              onClick={() => 
+                                editData(row.id,row.Name,row.Price,row.Category)}
                             />
                             <DeleteIcon
                               style={{
