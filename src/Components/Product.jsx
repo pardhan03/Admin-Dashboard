@@ -221,7 +221,7 @@ export default function ProductList() {
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => {
                 return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+                  <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
                         <TableCell key={row.id} align={"left"}>
                           {row.Name}
                         </TableCell>
